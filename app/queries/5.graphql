@@ -26,3 +26,7 @@ query Q5_6 {
   }
   currentTime
 }
+
+query Q_5_7 {
+  currentTime
+}
