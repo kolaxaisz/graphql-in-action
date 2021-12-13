@@ -3,7 +3,8 @@ import {
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
-  GraphQLString
+  GraphQLString,
+  printSchema
 } from "graphql"
 import NumbersInRange from './types/numbers-in-range'
 import {numbersInRangeObject} from '../utils'
@@ -30,12 +31,12 @@ const QueryType = new GraphQLObjectType({
         }
       },
       resolve: (source, {begin, end}) => {
-        let sum = 0;
+        let sum = 0
         for (let i = begin; i <= end; i++) {
-          sum += i;
+          sum += i
         }
 
-        return sum;
+        return sum
       }
     },
     numbersInRange: {
@@ -54,5 +55,7 @@ const QueryType = new GraphQLObjectType({
 export const schema = new GraphQLSchema({
   query: QueryType
 })
+
+console.log(printSchema(schema))
 
 
