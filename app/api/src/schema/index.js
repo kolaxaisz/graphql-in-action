@@ -1,13 +1,23 @@
-import {buildSchema} from "graphql"
+import {
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLString
+} from "graphql"
 
-export const schema = buildSchema(`
-    type Query {
-        currentTime: String!
-    }`)
+const QueryType = new GraphQLObjectType({
+  name: 'Query',
+  fields: {
+    currentTime: {
+      type: GraphQLString,
+      resolve: () => {
+        const isoString = new Date().toISOString()
 
-export const rootValue = {
-  currentTime: () => {
-    const isoString = new Date().toISOString()
-    return isoString.slice(11, 19)
+        return isoString.slice(11, 19)
+      }
+    }
   }
-}
+})
+
+export const schema = new GraphQLSchema({
+  query: QueryType
+})
