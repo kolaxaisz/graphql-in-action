@@ -1,0 +1,130 @@
+type Query {
+  currentTime: String
+  numbersInRange(begin: Int!, end: Int!): NumbersInRange
+  taskMainList: [Task!]
+  search(term: String!): [SearchResultItem!]
+  taskInfo(id: ID!): Task
+  me: Me
+}
+
+"""Aggregate info on a range of numbers"""
+type NumbersInRange {
+  sum: Int!
+  count: Int!
+}
+
+type Task implements SearchResultItem {
+  id: ID!
+  createdAt: String!
+  content: String!
+  tags: [String!]!
+  approachCount: Int!
+  author: User!
+  approachList: [Approach!]!
+}
+
+interface SearchResultItem {
+  id: ID!
+  content: String!
+}
+
+type User {
+  id: ID!
+  email: String
+  name: String
+  createdAt: String!
+}
+
+type Approach implements SearchResultItem {
+  id: ID!
+  createdAt: String!
+  content: String!
+  voteCount: Int!
+  task: Task!
+  author: User!
+  detailList: [ApproachDetail!]!
+}
+
+type ApproachDetail {
+  content: String!
+  category: ApproachDetailCategory!
+}
+
+enum ApproachDetailCategory {
+  NOTE
+  EXPLANATION
+  WARNING
+}
+
+type Me {
+  id: ID!
+  username: String!
+  name: String
+  createdAt: String!
+  taskList: [Task!]!
+}
+
+type Mutation {
+  userCreate(input: UserInput!): UserPayload
+  userLogin(input: AuthInput!): UserPayload
+  taskCreate(input: TaskInput!): TaskPayload
+  approachCreate(taskId: ID!, input: ApproachInput!): ApproachPayload
+  approachVote(approachId: ID!, input: ApproachVoteInput!): ApproachPayload
+}
+
+type UserPayload {
+  errors: [UserError!]!
+  user: User
+  authToken: String
+}
+
+type UserError {
+  message: String!
+}
+
+input UserInput {
+  email: String!
+  password: String!
+  firstName: String
+  lastName: String
+}
+
+input AuthInput {
+  email: String!
+  password: String!
+}
+
+type TaskPayload {
+  errors: [UserError!]!
+  task: Task
+}
+
+input TaskInput {
+  content: String!
+  tags: [String!]!
+  isPrivate: Boolean!
+}
+
+type ApproachPayload {
+  errors: [UserError!]!
+  approach: Approach
+}
+
+input ApproachInput {
+  content: String!
+  detailList: [ApproachDetailInput!]!
+}
+
+input ApproachDetailInput {
+  content: String!
+  category: ApproachDetailCategory!
+}
+
+input ApproachVoteInput {
+  up: Boolean!
+}
+
+type Subscription {
+  voteChanged(taskId: ID!): Approach!
+  taskMainListChanged: [Task!]
+}
