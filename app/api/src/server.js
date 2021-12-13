@@ -1,13 +1,32 @@
-import {graphql} from "graphql";
+import {graphqlHTTP} from "express-graphql";
 import {schema, rootValue} from './schema'
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import morgan from 'morgan';
 
-const executeGraphQLRequest = async (source) => {
-  try {
-    const resp = await graphql(schema, source, rootValue);
-    console.log(resp.data);
-  } catch (e) {
-    console.error(e);
-  }
+import * as config from './config';
+
+async function main() {
+  const server = express();
+  server.use(cors());
+  server.use(morgan('dev'));
+  server.use(bodyParser.urlencoded({ extended: false }));
+  server.use(bodyParser.json());
+  server.use('/:fav.ico', (req, res) => res.sendStatus(204));
+
+  server.use('/', graphqlHTTP( {
+    schema,
+    rootValue,
+    graphiql: true,
+  }))
+
+  // Run the server
+  server.listen(config.port, () => {
+    console.log(`Server URL: http://localhost:${config.port}/`);
+  });
 }
 
-executeGraphQLRequest(process.argv[2]);
+main();
+
+
