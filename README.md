@@ -15,4 +15,7 @@
 - [az.dev/api](https://az.dev/gs) 
 - [az.dev/gia-schema](https://jscomplete.com/learn/gia#full-api-schema)
 
+## Chapter 05: Implementing schema resolvers
 
+- https://github.com/jscomplete/graphql-in-action
+- 
