@@ -11,3 +11,18 @@ query Q5_4 {
     avg
   }
 }
+
+query Q5_5 {
+  numbersInRange(begin: 5, end:4) {
+    sum
+    count
+  }
+}
+
+query Q5_6 {
+  numbersInRange(begin: 5, end:2) {
+    sum
+    count
+  }
+  currentTime
+}
