@@ -4,7 +4,15 @@ schema {
   query: Query
 }
 
+"Aggregate info on a range of numbers"
+type NumbersInRange {
+  avg: Int!
+  count: Int!
+  sum: Int!
+}
+
 type Query {
   currentTime: String
+  numbersInRange(begin: Int!, end: Int!): NumbersInRange
   sumNumbersInRange(begin: Int!, end: Int!): Int!
 }

@@ -1,4 +1,13 @@
-query {
+query Q5_3{
   currentTime
   sumNumbersInRange(begin: 1, end: 10)
+}
+
+query Q5_4 {
+  currentTime
+  numbersInRange(begin: 10, end: 20) {
+    sum
+    count
+    avg
+  }
 }
