@@ -1,4 +1,6 @@
 import {
+  GraphQLInt,
+  GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString
@@ -13,6 +15,25 @@ const QueryType = new GraphQLObjectType({
         const isoString = new Date().toISOString()
 
         return isoString.slice(11, 19)
+      }
+    },
+    sumNumbersInRange: {
+      type: new GraphQLNonNull(GraphQLInt),
+      args: {
+        begin: {
+          type: new GraphQLNonNull(GraphQLInt),
+        },
+        end: {
+          type: new GraphQLNonNull(GraphQLInt)
+        }
+      },
+      resolve: (source, {begin, end}) => {
+        let sum = 0;
+        for (let i = begin; i <= end; i++) {
+          sum += i;
+        }
+
+        return sum;
       }
     }
   }

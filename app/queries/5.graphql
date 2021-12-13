@@ -1,3 +1,4 @@
 query {
   currentTime
+  sumNumbersInRange(begin: 1, end: 10)
 }
