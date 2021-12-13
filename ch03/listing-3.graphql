@@ -1,314 +1,314 @@
 query List_3_1__UserInfo {
-    user(login:"peteroncode") {
-        name
-    }
+  user(login:"peteroncode") {
+    name
+  }
 }
 
 query List_3_2__NodeInfo {
-    node(id: "A-GLOBALLY-UNIQUE-ID-HERE") {
-        ... on USER {
-            firstName
-            lastName
-            username
-            email
-        }
+  node(id: "A-GLOBALLY-UNIQUE-ID-HERE") {
+    ... on USER {
+      firstName
+      lastName
+      username
+      email
     }
+  }
 }
 
 query List_3_3__OrgInfo {
-    organization(login: "jscomplete") {
-        name
-        description
-        websiteUrl
-    }
+  organization(login: "jscomplete") {
+    name
+    description
+    websiteUrl
+  }
 }
 
 query List_3_4__First10Repos {
-    organization(login: "jscomplete") {
+  organization(login: "jscomplete") {
+    name
+    description
+    websiteUrl
+    repositories(first: 10) {
+      nodes {
         name
-        description
-        websiteUrl
-        repositories(first: 10) {
-            nodes {
-                name
-            }
-        }
+      }
     }
+  }
 }
 
 query List_3_5__orgReposByName {
-    organization(login: "jscomplete") {
-        repositories(
-            first: 10,
-            orderBy: {
-                field: NAME,
-                direction: ASC
-            }
-        ) {
-            nodes {
-                name
-            }
-        }
+  organization(login: "jscomplete") {
+    repositories(
+      first: 10,
+      orderBy: {
+        field: NAME,
+        direction: ASC
+      }
+    ) {
+      nodes {
+        name
+      }
     }
+  }
 }
 
 query List_3_6__orgPopularRepos {
-    organization(login: "jscomplete") {
-        repositories(
-            first: 10,
-            orderBy: {
-                field: STARGAZERS
-                direction: DESC
-            }
-        ) {
-            nodes {
-                name
-            }
-        }
+  organization(login: "jscomplete") {
+    repositories(
+      first: 10,
+      orderBy: {
+        field: STARGAZERS
+        direction: DESC
+      }
+    ) {
+      nodes {
+        name
+      }
     }
+  }
 }
 
 query List_3_7__OrgRepoConnectionExample {
-    organization(login: "jscomplete") {
-        repositories(first: 10, orderBy: {field: CREATED_AT, direction: ASC}) {
-            edges {
-                cursor
-                node {
-                    name
-                }
-            }
+  organization(login: "jscomplete") {
+    repositories(first: 10, orderBy: {field: CREATED_AT, direction: ASC}) {
+      edges {
+        cursor
+        node {
+          name
         }
+      }
     }
+  }
 }
 
 query List_3_8__OrgRepoConnectionExample {
-    organization(login: "jscomplete") {
-        repositories(first: 10, after: "Y3Vyc29yOnYyOpK5MjAxNy0wMS0yMVQwODo1NTo0My0wODowMM4Ev4A3", orderBy: {field: CREATED_AT, direction: ASC}) {
-            edges {
-                cursor
-                node {
-                    name
-                }
-            }
+  organization(login: "jscomplete") {
+    repositories(first: 10, after: "Y3Vyc29yOnYyOpK5MjAxNy0wMS0yMVQwODo1NTo0My0wODowMM4Ev4A3", orderBy: {field: CREATED_AT, direction: ASC}) {
+      edges {
+        cursor
+        node {
+          name
         }
+      }
     }
+  }
 }
 
 query List_3_9__OrgReposMetaInfoExample {
-    organization(login: "jscomplete") {
-        repositories(first: 10, after: "Y3Vyc29yOnYyOpK5MjAxNy0wMS0yMVQwODo1NTo0My0wODowMM4Ev4A3", orderBy: {field: CREATED_AT, direction: DESC}) {
-            totalCount
-            pageInfo {
-                hasNextPage
-            }
-            edges {
-                cursor
-                node {
-                    name
-                }
-            }
+  organization(login: "jscomplete") {
+    repositories(first: 10, after: "Y3Vyc29yOnYyOpK5MjAxNy0wMS0yMVQwODo1NTo0My0wODowMM4Ev4A3", orderBy: {field: CREATED_AT, direction: DESC}) {
+      totalCount
+      pageInfo {
+        hasNextPage
+      }
+      edges {
+        cursor
+        node {
+          name
         }
+      }
     }
+  }
 }
 
 query List_3_10__SearchExample {
-    repository(owner: "twbs", name:"bootstrap") {
-        projects(search:"v4.1", first:10) {
-            nodes {
-                name
-            }
-        }
+  repository(owner: "twbs", name:"bootstrap") {
+    projects(search:"v4.1", first:10) {
+      nodes {
+        name
+      }
     }
+  }
 }
 
 query FilterExample {
-    viewer {
-        repositories(first: 10, affiliations: OWNER) {
-            totalCount
-            nodes {
-                name
-            }
-        }
+  viewer {
+    repositories(first: 10, affiliations: OWNER) {
+      totalCount
+      nodes {
+        name
+      }
     }
+  }
 }
 
 mutation StarARepo {
-    addStar(input: { starrableId: "MDEwOlJlcG9zaXRvcnkxMjU2ODEwMDY=" }) {
-        starrable {
-            stargazers {
-                totalCount
-            }
-        }
+  addStar(input: { starrableId: "MDEwOlJlcG9zaXRvcnkxMjU2ODEwMDY=" }) {
+    starrable {
+      stargazers {
+        totalCount
+      }
     }
+  }
 }
 
 query ProfileInfo {
-    user(login: "samerbuna") {
-        name
-        company
-        bio
-    }
+  user(login: "samerbuna") {
+    name
+    company
+    bio
+  }
 }
 
 query ProfileInfoWithAlias {
-    user(login: "samerbuna") {
-        name
-        companyName: company
-        bio
-    }
+  user(login: "samerbuna") {
+    name
+    companyName: company
+    bio
+  }
 }
 
 query List_3_15__AllDirectives {
-    __schema {
-        directives {
-            name
-            description
-            locations
-            args {
-                name
-                description
-                defaultValue
-            }
-        }
+  __schema {
+    directives {
+      name
+      description
+      locations
+      args {
+        name
+        description
+        defaultValue
+      }
     }
+  }
 }
 
 query List_3_16__OrgInfo($orgLogin: String!) {
-    organization(login: $orgLogin) {
-        name
-        description
-        websiteUrl
-    }
+  organization(login: $orgLogin) {
+    name
+    description
+    websiteUrl
+  }
 }
 
 query List_3_17__OrgInfoWithDefault($orgLogin: String = "jscomplete") {
-    organization(login: $orgLogin) {
-        name
-        description
-        websiteUrl
-    }
+  organization(login: $orgLogin) {
+    name
+    description
+    websiteUrl
+  }
 }
 
 query List_3_18__OrgInfo($orgLogin: String!, $fullDetails: Boolean!) {
-    organization(login: $orgLogin) {
-        name
-        description
-        websiteUrl @include(if: $fullDetails)
-    }
+  organization(login: $orgLogin) {
+    name
+    description
+    websiteUrl @include(if: $fullDetails)
+  }
 }
 
 query List_3_19__OrgInfo($orgLogin: String!, $partialDetails: Boolean!) {
-    organization(login: $orgLogin) {
-        name
-        description
-        websiteUrl @skip(if: $partialDetails)
-    }
+  organization(login: $orgLogin) {
+    name
+    description
+    websiteUrl @skip(if: $partialDetails)
+  }
 }
 
 query List_3_20__OrgInfo($orgLogin: String!, $partialDetails: Boolean!) {
-    organization(login: $orgLogin) {
-        name
-        description
-        websiteUrl @skip(if: $partialDetails) @include(if: false)
-    }
+  organization(login: $orgLogin) {
+    name
+    description
+    websiteUrl @skip(if: $partialDetails) @include(if: false)
+  }
 }
 
 
 fragment orgFields on Organization {
-    name
-    description
-    websiteUrl
+  name
+  description
+  websiteUrl
 }
 
 query List_3_23__OrgInfoWithFragment {
-    organization(login: "jscomplete") {
-        ...orgFields
-    }
+  organization(login: "jscomplete") {
+    ...orgFields
+  }
 }
 
 query List_3_24__MyRepos {
-    viewer {
-        ownedRepos: repositories(affiliations: OWNER, first: 10) {
-            nodes {
-                nameWithOwner
-                description
-                forkCount
-            }
-        }
-        orgsRepos: repositories(affiliations: ORGANIZATION_MEMBER, first: 10) {
-            nodes {
-                nameWithOwner
-                description
-                forkCount
-            }
-        }
-    }
-}
-
-query List_3_25__MyRepos {
-    viewer {
-        ownedRepos: repositories(affiliations: OWNER, first: 10) {
-            ...repoInfo
-        }
-        orgsRepos: repositories(affiliations: ORGANIZATION_MEMBER, first: 10) {
-            ...repoInfo
-        }
-    }
-}
-fragment repoInfo on RepositoryConnection {
-    nodes {
+  viewer {
+    ownedRepos: repositories(affiliations: OWNER, first: 10) {
+      nodes {
         nameWithOwner
         description
         forkCount
+      }
     }
+    orgsRepos: repositories(affiliations: ORGANIZATION_MEMBER, first: 10) {
+      nodes {
+        nameWithOwner
+        description
+        forkCount
+      }
+    }
+  }
+}
+
+query List_3_25__MyRepos {
+  viewer {
+    ownedRepos: repositories(affiliations: OWNER, first: 10) {
+      ...repoInfo
+    }
+    orgsRepos: repositories(affiliations: ORGANIZATION_MEMBER, first: 10) {
+      ...repoInfo
+    }
+  }
+}
+fragment repoInfo on RepositoryConnection {
+  nodes {
+    nameWithOwner
+    description
+    forkCount
+  }
 }
 
 query List_3_34__InlineFragmentExample {
-    repository(owner: "facebook", name: "graphql") {
-        ref(qualifiedName: "master") {
-            target {
-                ... on Commit {
-                    message
-                }
-            }
+  repository(owner: "facebook", name: "graphql") {
+    ref(qualifiedName: "master") {
+      target {
+        ... on Commit {
+          message
         }
+      }
     }
+  }
 }
 
 query List_3_35__RepoUnionExample {
-    repository(owner: "facebook", name: "graphql") {
-        issueOrPullRequest(number: 3) {
-            __typename
-        }
+  repository(owner: "facebook", name: "graphql") {
+    issueOrPullRequest(number: 3) {
+      __typename
     }
+  }
 }
 
 query List_3_36__RepoUnionExampleFull {
-    repository(owner: "facebook", name: "graphql") {
-        issueOrPullRequest(number: 5) {
-            ... on PullRequest {
-                merged
-                mergedAt
-            }
-            ... on Issue {
-                closed
-                closedAt
-            }
-        }
+  repository(owner: "facebook", name: "graphql") {
+    issueOrPullRequest(number: 5) {
+      ... on PullRequest {
+        merged
+        mergedAt
+      }
+      ... on Issue {
+        closed
+        closedAt
+      }
     }
+  }
 }
 
 query List_3_37__TestSearch {
-    search(first: 100, query: "graphql", type: USER) {
-        nodes {
-            ... on User {
-                name
-                bio
-            }
-            ... on Organization {
-                login
-                description
-            }
-        }
+  search(first: 100, query: "graphql", type: USER) {
+    nodes {
+      ... on User {
+        name
+        bio
+      }
+      ... on Organization {
+        login
+        description
+      }
     }
+  }
 }
