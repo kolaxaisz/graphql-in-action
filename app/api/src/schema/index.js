@@ -1,5 +1,5 @@
 import {
-  GraphQLInt,
+  GraphQLInt, GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
@@ -8,6 +8,7 @@ import {
 } from "graphql"
 import NumbersInRange from './types/numbers-in-range'
 import {numbersInRangeObject} from '../utils'
+import Task from './types/task'
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -47,6 +48,20 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: (source, {begin, end}) => {
         return numbersInRangeObject(begin, end)
+      }
+    },
+    taskMainList: {
+      type: new GraphQLList(new GraphQLNonNull(Task)),
+      resolve: async (source, args, {pgPool}) => {
+        const pgResp = await pgPool.query(`
+          select id, content, tags, approach_count, created_at
+          from azdev.tasks
+          where is_private = false
+          order by created_at desc
+          limit 100`
+        )
+
+        return pgResp.rows
       }
     }
   }

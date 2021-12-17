@@ -15,4 +15,13 @@ type Query {
   currentTime: String
   numbersInRange(begin: Int!, end: Int!): NumbersInRange
   sumNumbersInRange(begin: Int!, end: Int!): Int!
+  taskMainList: [Task!]
+}
+
+type Task {
+  approachCount: Int!
+  content: String!
+  createdAt: String!
+  id: ID!
+  tag: [String!]!
 }
