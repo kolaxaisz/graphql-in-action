@@ -12,6 +12,7 @@ type NumbersInRange {
 }
 
 type Query {
+  createdAt: String!
   currentTime: String
   numbersInRange(begin: Int!, end: Int!): NumbersInRange
   sumNumbersInRange(begin: Int!, end: Int!): Int!

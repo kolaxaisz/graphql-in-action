@@ -2,6 +2,6 @@ query Q6_01 {
   taskMainList {
     id
     content
-    tag
+    createdAt
   }
 }

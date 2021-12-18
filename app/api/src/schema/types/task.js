@@ -23,7 +23,10 @@ const Task = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLInt)
     },
     createdAt: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: (source => {
+        return source.createdAt
+      })
     }
   }
 })
