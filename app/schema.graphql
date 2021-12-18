@@ -12,7 +12,6 @@ type NumbersInRange {
 }
 
 type Query {
-  createdAt: String!
   currentTime: String
   numbersInRange(begin: Int!, end: Int!): NumbersInRange
   sumNumbersInRange(begin: Int!, end: Int!): Int!
@@ -24,5 +23,5 @@ type Task {
   content: String!
   createdAt: String!
   id: ID!
-  tag: [String!]!
+  tags: [String!]!
 }

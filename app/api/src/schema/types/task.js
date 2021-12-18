@@ -16,8 +16,9 @@ const Task = new GraphQLObjectType({
     content: {
       type: new GraphQLNonNull(GraphQLString)
     },
-    tag: {
-      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLString)))
+    tags: {
+      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLString))),
+      resolve: (source) => source.tags.split(',')
     },
     approachCount: {
       type: new GraphQLNonNull(GraphQLInt)
@@ -25,7 +26,7 @@ const Task = new GraphQLObjectType({
     createdAt: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: (source => {
-        return source.createdAt
+        return source.createdAt.toISOString()
       })
     }
   }
