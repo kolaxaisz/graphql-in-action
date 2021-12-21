@@ -4,12 +4,12 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import morgan from 'morgan'
-import pgClient from './db/pg-client'
+import pgApiWrapper from './db/pg-api'
 
 import * as config from './config'
 
 async function main() {
-  const { pgPool } = await pgClient()
+  const pgApi = await pgApiWrapper()
   const server = express()
   server.use(cors())
   server.use(morgan('dev'))
@@ -19,7 +19,7 @@ async function main() {
 
   server.use('/', graphqlHTTP({
     schema,
-    context: { pgPool },
+    context: { pgApi },
     graphiql: true,
   }))
 

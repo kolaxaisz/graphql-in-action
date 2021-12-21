@@ -9,7 +9,6 @@ import {
 import NumbersInRange from './types/numbers-in-range'
 import {numbersInRangeObject} from '../utils'
 import Task from './types/task'
-import sqlQuery from '../db/sqls'
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -53,10 +52,8 @@ const QueryType = new GraphQLObjectType({
     },
     taskMainList: {
       type: new GraphQLList(new GraphQLNonNull(Task)),
-      resolve: async (source, args, {pgPool}) => {
-        const pgResp = await pgPool.query(sqlQuery.tasksLatest)
-
-        return pgResp.rows
+      resolve: async (source, args, {pgApi}) => {
+        return pgApi.taskMainList()
       }
     }
   }
