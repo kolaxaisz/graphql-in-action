@@ -53,7 +53,7 @@ const QueryType = new GraphQLObjectType({
     taskMainList: {
       type: new GraphQLList(new GraphQLNonNull(Task)),
       resolve: async (source, args, {pgApi}) => {
-        return pgApi.taskMainList()
+        return pgApi.taksMainList()
       }
     }
   }

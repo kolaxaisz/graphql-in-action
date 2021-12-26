@@ -19,8 +19,23 @@ async function main() {
 
   server.use('/', graphqlHTTP({
     schema,
-    context: { pgApi },
+    context: {pgApi},
     graphiql: true,
+    customFormatErrorFn: (error) => {
+      const errorReport = {
+        message: error.message,
+        locations: error.locations,
+        stack: error.stack ? error.stack.split('\n') : [],
+        path: error.path
+      }
+      console.error('GraphQL Error', errorReport)
+
+      return config.isDev
+        ? errorReport
+        : {
+          message: 'Oops! Something went wrong! :('
+        }
+    }
   }))
 
   // Run the server
